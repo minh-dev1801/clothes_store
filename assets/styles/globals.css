@@ -10,6 +10,9 @@
   .flex-start {
     @apply flex justify-start items-center;
   }
+  .flex-end {
+    @apply flex justify-end items-center;
+  }
   .flex-center {
     @apply flex justify-center items-center;
   }
@@ -88,6 +91,17 @@
 }
 
 @layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
   body {
     @apply bg-background text-foreground;
   }
