@@ -1,5 +1,7 @@
+import ProductList from "@/components/shared/product/product-list";
+
 const HomePage = () => {
-  return <h1>Home page</h1>;
+  return <ProductList />;
 };
 
 export default HomePage;
