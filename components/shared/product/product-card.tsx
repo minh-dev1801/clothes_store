@@ -7,7 +7,7 @@ import { Product } from "@/types";
 const ProductCart = ({ product }: { product: Product }) => {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="items-center">
         <Link href={"/product/" + product.slug}>
           <Image
             src={product.images[0]}
@@ -18,7 +18,7 @@ const ProductCart = ({ product }: { product: Product }) => {
         </Link>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="p-4 grid gap-4">
         <div className="text-xs">{product.brand}</div>
         <Link href={"/product/" + product.slug}>
           <h2 className="text-sm font-medium">{product.name}</h2>
