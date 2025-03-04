@@ -1,29 +1,36 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import ProductPrice from "./product-price";
 
-const ProductCart = () => {
+const ProductCart = ({ product }) => {
   return (
     <Card>
       <CardHeader>
-        <Link href="product/123">
+        <Link href={"/product/" + product.slug}>
           <Image
-            src="/public/imges/sample-products/p1-1.jpg"
-            alt="Product 1"
+            src={product.images[0]}
+            alt={`${product.name} image`}
             width={300}
             height={300}
-            priority
           />
         </Link>
       </CardHeader>
 
       <CardContent>
-        <div className="text-xs">MWC</div>
-        <Link href="product/123">
-          <h2 className="text-sm font-medium">Tome cuser</h2>
+        <div className="text-xs">{product.brand}</div>
+        <Link href={"/product/" + product.slug}>
+          <h2 className="text-sm font-medium">{product.name}</h2>
         </Link>
         <div className="flex-between gap-4">
-          <p>0 Stars</p>
+          <p>{product.rating} Stars</p>
+          {product.stock > 0 ? (
+            <ProductPrice price={product.price}/>
+          ) : (
+            <div>
+              <p className="capitalize text-destructive">Out of stock</p>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

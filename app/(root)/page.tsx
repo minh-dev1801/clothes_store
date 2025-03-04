@@ -3,9 +3,8 @@ import { getLatestProducts } from "@/lib/actions/product.actions";
 
 const HomePage = async () => {
   const latestProducts = await getLatestProducts();
-  console.log(latestProducts);
 
-  return <ProductList />;
+  return <ProductList data={latestProducts} />;
 };
 
 export default HomePage;
