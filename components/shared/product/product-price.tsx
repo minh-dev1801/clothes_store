@@ -1,5 +1,5 @@
-const ProductPrice = ({ price }) => {
-  const stringPrice = Number(price).toFixed(2);
+const ProductPrice = ({ price }: { price: number }) => {
+  const stringPrice = price.toFixed(2);
   const arrPrice = stringPrice.split(".");
   const [intPrice, floatPrice] = arrPrice;
 

@@ -1,6 +1,7 @@
+import { Product } from "@/types";
 import ProductCart from "./product-card";
 
-const ProductList = ({ data }) => {
+const ProductList = ({ data }: { data: Product[] }) => {
   return (
     <div className="py-10">
       <h2 className="h2-bold mb-4">Products</h2>
