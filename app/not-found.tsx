@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/constants";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const NotFoundPage = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Image
@@ -20,7 +22,7 @@ const NotFoundPage = () => {
         <Button
           variant="outline"
           className="mt-4"
-          onClick={() => (window.location.href = "/")}
+          onClick={() => router.push("/")}
         >
           Back To Home
         </Button>

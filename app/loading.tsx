@@ -3,8 +3,8 @@ import loader from "@/assets/loader.gif";
 
 const LoadingPage = () => {
   return (
-    <div className="flex-center min-h-screen">
-      <Image src={loader} alt="Loading..." width={150} height={150} />
+    <div className="flex-center min-h-screen bg-white">
+      <Image src={loader} alt="Loading..." width={150} height={150} priority />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Product } from "@/types";
-import ProductCart from "./product-card";
+import ProductCard from "./product-card";
 
 const ProductList = ({ data }: { data: Product[] }) => {
   return (
@@ -8,7 +8,7 @@ const ProductList = ({ data }: { data: Product[] }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data.length > 0 ? (
           data.map((product) => (
-            <ProductCart key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} />
           ))
         ) : (
           <div>

@@ -13,7 +13,7 @@ import UserButton from "./user-button";
 const Menu = () => {
   return (
     <div className="flex-end gap-3">
-      <nav className="hidden md:flex w-full max-w-xs gap-2">
+      <nav className="hidden md:flex w-full max-w-xs gap-2 items-center">
         <ModeToggle />
         <Button asChild variant="ghost">
           <Link href="/cart">
