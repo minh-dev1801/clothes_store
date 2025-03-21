@@ -1,13 +1,19 @@
-const ProductPrice = ({ price }: { price: number }) => {
-  const stringPrice = price.toFixed(2);
-  const arrPrice = stringPrice.split(".");
-  const [intPrice, floatPrice] = arrPrice;
+import { cn } from "@/lib/utils";
 
+const ProductPrice = ({
+  value,
+  className,
+}: {
+  value: number;
+  className?: string;
+}) => {
+  const stringValue = value.toFixed(2);
+  const [intValue, floatValue] = stringValue.split(".");
   return (
-    <p>
+    <p className={cn("text-2xl", className)}>
       <span className="text-xs align-super">$</span>
-      {intPrice}
-      <span className="text-xs align-super">.{floatPrice}</span>
+      {intValue}
+      <span className="text-xs align-super">.{floatValue}</span>
     </p>
   );
 };
