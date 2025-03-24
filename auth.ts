@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NextAuth from "next-auth";
-import type { NextAuthConfig } from "next-auth";
-import prisma from "./db/prisma";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcrypt-ts-edge";
+import type { NextAuthConfig } from "next-auth";
 import { NextResponse } from "next/server";
+import { prisma } from "@/db/prisma";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 export const config = {
   pages: {
@@ -23,6 +23,7 @@ export const config = {
         email: { type: "email" },
         password: { type: "password" },
       },
+
       async authorize(credentials) {
         if (credentials === null) return null;
         const user = await prisma.user.findFirst({
@@ -30,11 +31,13 @@ export const config = {
             email: credentials.email as string,
           },
         });
+
         if (user && user.password) {
           const isMatch = compareSync(
             credentials.password as string,
             user.password
           );
+
           if (isMatch) {
             return {
               id: user.id,
@@ -44,12 +47,19 @@ export const config = {
             };
           }
         }
+
         return null;
       },
     }),
   ],
   callbacks: {
-    async session({ session, user, trigger, token }: any) {
+    async session({
+      session,
+      user,
+      trigger,
+      token,
+    }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any) {
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;
@@ -60,12 +70,15 @@ export const config = {
       return session;
     },
 
-    async jwt({ token, user }: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async jwt({ token, user, trigger, session }: any) {
       if (user) {
         token.role = user.role;
 
         if (user.name === "NO_NAME") {
           token.name = user.email!.split("@")[0];
+
+          const { prisma } = await import("@/db/prisma");
 
           await prisma.user.update({
             where: { id: user.id },
@@ -75,8 +88,7 @@ export const config = {
       }
       return token;
     },
-
-    authorized({ request }: any) {
+    authorized({ request, auth }: any) {
       if (!request.cookies.get("sessionCartId")) {
         const sessionCartId = crypto.randomUUID();
 
@@ -98,4 +110,4 @@ export const config = {
   },
 } satisfies NextAuthConfig;
 
-export const { handlers, signIn, signOut, auth } = NextAuth(config);
+export const { handlers, auth, signIn, signOut } = NextAuth(config);
